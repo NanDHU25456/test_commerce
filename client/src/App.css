@@ -1,0 +1,46 @@
+.custom-card-group{
+  margin-top: 5%;
+  margin-bottom:5%;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap !important;
+  width: 100% !important;
+  cursor: pointer;
+}
+
+.custom-card-group a {
+  text-decoration: none;
+}
+
+.custom-card{
+  margin-right: 2%;
+  margin-bottom: 2%;
+  width: 300px !important;
+  display: inline-block !important;
+  cursor: pointer;
+}
+
+.card-title{
+  text-align: center !important;
+}
+
+.price-container{
+  display: flex;
+  justify-content: space-between;
+  width: 100%
+}
+
+#price-value{
+  display: block;
+  color: green;
+}
+
+#del-btn{
+  margin-left: 4%;
+}
+
+.custom-form{
+  margin-top: 8%;
+}
