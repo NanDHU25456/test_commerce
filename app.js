@@ -4,9 +4,15 @@ const bodyParser = require("body-parser")
 const cors = require("cors")
 const MongoClient = require("mongodb").MongoClient
 const app = express()
+const crypto = require("crypto");
+const { Parser } = require('json2csv');
+const fs = require("fs")
 const dbName = "test_commerce"
 const url = 'mongodb://localhost:27017'
 const port = 5000
+
+const key = crypto.createHash("sha256").update("OMGCAT!", "ascii").digest();
+const iv = "1234567890123456"
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -135,6 +141,112 @@ function initRoutes(connectionObject) {
                     status: "Error"
                 })
 
+        }
+    })
+
+    //SiginUp User
+    app.post("/signup", async (req, res) => {
+        const { email, password } = req.body
+        try {
+            const dbo = connectionObject.db(dbName)
+
+            const result = await dbo.collection("users").findOne({ email })
+
+            if (result) {
+                res.status(401)
+                    .json({
+                        status: "Error",
+                        message: "User Already Registered"
+                    })
+            } else {
+                //encrypting the password
+                const cipher = crypto.createCipheriv("aes-256-cbc", key, iv);
+                cipher.update(password, "ascii");
+                const encrypted = cipher.final("base64");
+
+                const user_json = { email, password: encrypted }
+
+
+                await dbo.collection("users").insertOne(user_json)
+
+                res.json({
+                    status: "Success"
+                })
+            }
+
+        } catch (error) {
+            console.log(error);
+
+            res.status(500)
+                .json({
+                    status: "Error"
+                })
+        }
+    })
+
+    //Signin User
+    app.post("/signin", async (req, res) => {
+        const { email, password } = req.body
+
+        try {
+            const dbo = connectionObject.db(dbName)
+
+            //encrypting the password
+            const cipher = crypto.createCipheriv("aes-256-cbc", key, iv);
+            cipher.update(password, "ascii");
+            const encrypted = cipher.final("base64");
+
+            const result = await dbo.collection("users").findOne({ email })
+
+            if (result) {
+                if (result.password == encrypted) {
+                    res.json({
+                        status: "Success",
+                        message: "Successfully logged In"
+                    })
+                    return
+                } else {
+                    res.status(401)
+                        .json({
+                            status: "Error",
+                            message: "Password not matched"
+                        })
+                }
+
+            } else {
+                res.status(404)
+                    .json({
+                        status: "Error",
+                        message: "User Not Registered"
+                    })
+            }
+
+        } catch (error) {
+            console.log(error);
+
+            res.status(500)
+                .json({
+                    status: "Error"
+                })
+        }
+    })
+
+    app.get("/sendCSV", async (req, res) => {
+        try {
+            const dbo = connectionObject.db(dbName)
+            const result = await dbo.collection("products").find().toArray()
+            const fields = ["name", "price", "description"]
+
+            const json2csvParser = new Parser({ fields });
+            const csv = json2csvParser.parse(result);
+            fs.writeFileSync("./client/src/products.csv", csv)
+            res.send(csv)
+
+        } catch (error) {
+            res.status(500)
+                .json({
+                    status: "Error",
+                })
         }
     })
 

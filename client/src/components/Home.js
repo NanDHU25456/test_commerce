@@ -2,17 +2,27 @@ import React from "react"
 import axios from 'axios'
 import { Link } from "react-router-dom"
 import image from '../images/image.jpg'
+import file from '../products.csv'
 
 export default class Home extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            products: []
+            products: [],
+            csv: null
         }
     }
 
     async componentDidMount() {
         await this.getProducts()
+        await this.getProductList()
+    }
+
+    getProductList = async () => {
+
+        let result = await axios.get("http://127.0.0.1:5000/sendCsv")
+
+        this.setState({ csv: result.data })
     }
 
     getProducts = async () => {
@@ -51,6 +61,9 @@ export default class Home extends React.Component {
         const productList = this.productList()
         return (
             <div className="container">
+                <div id="home-btn-container">
+                    <a href={file} download className="btn btn-primary">Download as CSV</a>
+                </div>
                 {productList}
             </div>
         )
