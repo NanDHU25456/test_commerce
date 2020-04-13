@@ -32,9 +32,8 @@ export default class Signup extends Component {
                 this.props.history.push("/")
             }
         } catch (error) {
-            console.log("error", error.response.data.message);
 
-            if (error.response.data.message) {
+            if (error && error.response && error.response.data.message) {
                 this.openNotificationWithIcon("error", error.response.data.message)
             } else {
                 this.openNotificationWithIcon("error", "Something Went wrong")
