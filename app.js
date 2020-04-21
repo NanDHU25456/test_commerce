@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.options('*', cors())
 app.use(
     cors({
-        origin: "*",
+        origin: ["http://13.67.90.191:3000/", "http://13.67.90.191:3000", "*"],
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
         preflightContinue: false,
         optionsSuccessStatus: 204
