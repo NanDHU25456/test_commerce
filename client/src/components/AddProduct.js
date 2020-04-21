@@ -18,7 +18,7 @@ export default class AddProduct extends Component {
 
         await axios.post("http://localhost:5000/create/product", this.state)
 
-        this.props.history.push("/")
+        this.props.history.push("/home")
 
     }
     render() {
