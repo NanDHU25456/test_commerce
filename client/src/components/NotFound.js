@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Result, Button } from 'antd';
+import { withRouter } from "react-router";
 
-export default class NotFound extends Component {
+class NotFound extends Component {
     render() {
         return (
             <div>
@@ -17,3 +18,5 @@ export default class NotFound extends Component {
         )
     }
 }
+
+export default withRouter(NotFound);
