@@ -6,6 +6,7 @@ import Signin from './components/Signin'
 import Signup from './components/Signup'
 import AddProduct from './components/AddProduct'
 import View from './components/View'
+import NotFound from './components/NotFound'
 import PrivateRoute from './components/PrivateRoute'
 import './App.css';
 
@@ -32,6 +33,7 @@ export default class App extends React.Component {
             <PrivateRoute exact path="/home" component={Home} />
             <PrivateRoute eaxct path="/add" component={AddProduct} />
             <PrivateRoute exact path="/product/:id" component={View} />
+            <Route component={NotFound} />
           </Switch>
         </Router>
       </div>
