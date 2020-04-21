@@ -16,10 +16,11 @@ const iv = "1234567890123456"
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+app.options('*', cors())
 app.use(
     cors({
         origin: "*",
-        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
         preflightContinue: false,
         optionsSuccessStatus: 204
     })
