@@ -47,7 +47,7 @@ export default class View extends Component {
         const id = _id
         await axios.delete(`http://localhost:5000/product?id=${id}`)
 
-        this.props.history.push("/")
+        this.props.history.push("/home")
     }
 
     render() {
