@@ -12,6 +12,13 @@ export default class Signin extends Component {
         }
     }
 
+    componentWillMount(){
+        var script = document.getElementById("translate")
+        if(script.length > 0){
+            document.head.removeChild("script")
+        }
+    }
+
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value })
     }

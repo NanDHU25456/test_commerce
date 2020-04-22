@@ -18,6 +18,7 @@ export default class Home extends React.Component {
 
         script.setAttribute("src", "https://avtstagecdn.blob.core.windows.net/static/mutationObserver.js")
         script.setAttribute("type", "text/javascript")
+        script.setAttribute("id", "translate")
 
         document.head.appendChild(script)
 

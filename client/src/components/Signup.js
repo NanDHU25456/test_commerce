@@ -21,6 +21,13 @@ export default class Signup extends Component {
         });
     };
 
+    componentWillMount() {
+        var script = document.getElementById("translate")
+        if (script.length > 0) {
+            document.head.removeChild("script")
+        }
+    }
+
     onSubmit = async (e) => {
         if (e.preventDefault) {
             e.preventDefault();
