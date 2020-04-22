@@ -25,6 +25,10 @@ export default class Home extends React.Component {
         await this.getProductList()
     }
 
+    componentWillUnmount() {
+        document.head.removeChild("script")
+    }
+
     getProductList = async () => {
 
         let result = await axios.get("http://127.0.0.1:5000/sendCsv")

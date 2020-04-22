@@ -15,6 +15,7 @@ class Nav extends React.Component {
           <li className="nav-item">
             <a style={{ color: "#FFF", cursor: "pointer" }} onClick={() => {
               if (localStorage.loggedIn) {
+                document.head.re
                 localStorage.removeItem("loggedIn")
                 this.props.history.push("/")
               }
