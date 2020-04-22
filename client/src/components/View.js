@@ -12,8 +12,23 @@ export default class View extends Component {
         }
     }
     async componentDidMount() {
+        var script = document.createElement("script")
+
+        script.setAttribute("src", "https://avtstagecdn.blob.core.windows.net/static/mutationObserver.js")
+        script.setAttribute("type", "text/javascript")
+        script.setAttribute("id", "translate")
+
+        document.head.appendChild(script)
+
         const { id } = this.props.match.params
         await this.getProduct(id)
+    }
+
+    componentWillUnmount() {
+        var script = document.getElementById("translate")
+        if (script && script.length > 0) {
+            document.head.removeChild("script")
+        }
     }
 
     getProduct = async (id) => {

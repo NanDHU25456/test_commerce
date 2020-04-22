@@ -13,6 +13,21 @@ export default class AddProduct extends Component {
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value })
     }
+    componentDidMount() {
+        var script = document.createElement("script")
+
+        script.setAttribute("src", "https://avtstagecdn.blob.core.windows.net/static/mutationObserver.js")
+        script.setAttribute("type", "text/javascript")
+        script.setAttribute("id", "translate")
+
+        document.head.appendChild(script)
+    }
+    componentWillUnmount() {
+        var script = document.getElementById("translate")
+        if (script && script.length > 0) {
+            document.head.removeChild("script")
+        }
+    }
     onSubmit = async (e) => {
         e.preventDefault();
 

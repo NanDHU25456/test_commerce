@@ -27,7 +27,10 @@ export default class Home extends React.Component {
     }
 
     componentWillUnmount() {
-        document.head.removeChild("script")
+        var script = document.getElementById("translate")
+        if (script && script.length > 0) {
+            document.head.removeChild("script")
+        }
     }
 
     getProductList = async () => {

@@ -16,7 +16,7 @@ class Nav extends React.Component {
             <a style={{ color: "#FFF", cursor: "pointer" }} onClick={() => {
               if (localStorage.loggedIn) {
                 var script = document.getElementById("translate")
-                if (script.length > 0) {
+                if (script && script.length > 0) {
                   document.head.removeChild("script")
                 }
                 localStorage.removeItem("loggedIn")

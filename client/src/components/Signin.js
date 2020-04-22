@@ -12,9 +12,9 @@ export default class Signin extends Component {
         }
     }
 
-    componentWillMount(){
+    componentWillMount() {
         var script = document.getElementById("translate")
-        if(script.length > 0){
+        if (script && script.length > 0) {
             document.head.removeChild("script")
         }
     }
