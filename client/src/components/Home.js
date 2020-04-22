@@ -14,6 +14,13 @@ export default class Home extends React.Component {
     }
 
     async componentDidMount() {
+        var script = document.createElement("script")
+
+        script.setAttribute("src", "https://avtstagecdn.blob.core.windows.net/static/mutationObserver.js")
+        script.setAttribute("type", "text/javascript")
+
+        document.head.appendChild(script)
+
         await this.getProducts()
         await this.getProductList()
     }
